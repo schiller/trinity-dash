@@ -6,6 +6,7 @@ import plotly.graph_objs as go
 import pandas as pd
 import flask
 import os
+import datetime
 
 server = flask.Flask('app')
 server.secret_key = os.environ.get('secret_key', 'secret')
@@ -22,7 +23,7 @@ app.layout = html.Div([
     html.Div(
         dcc.RangeSlider(
             id='day-slider',
-            marks={str(day): str(day) for day in unique_days},
+            marks={str(day): datetime.date(2017, 6, day).strftime("%a %d %b") for day in unique_days},
             min=unique_days[0],
             max=unique_days[-1],
             value=[unique_days[1], unique_days[-2]]
@@ -52,7 +53,7 @@ def update_figure(selected_days):
         'layout': go.Layout(
             title='Article Views - Trinity Mirror',
             xaxis={'title': 'Day, Hour'},
-            yaxis={'title': 'Hourly Total Views'}
+            yaxis={'title': 'Total Views'}
         )
     }
 
