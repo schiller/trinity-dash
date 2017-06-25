@@ -4,9 +4,10 @@ import dash_html_components as html
 import plotly.graph_objs as go
 import pandas as pd
 import flask
-
+import os
 
 server = flask.Flask('app')
+server.secret_key = os.environ.get('secret_key', 'secret')
 
 app = dash.Dash('app', server=server)
 
